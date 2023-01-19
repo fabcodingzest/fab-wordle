@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import usePrefersDarkMode from './usePrefersDarkMode'
 import useSafeLocalStorage from './useSafeLocalStorage'
 
-export function useDarkMode() {
+const useDarkMode = () => {
   const prefersDarkMode = usePrefersDarkMode()
-  const [isEnabled, setIsEnabled] = useSafeLocalStorage('darkMode', undefined)
+  const [isEnabled, setIsEnabled] = useSafeLocalStorage('darkMode', prefersDarkMode)
 
   const enabled = isEnabled === undefined ? prefersDarkMode : isEnabled
 
@@ -15,5 +15,7 @@ export function useDarkMode() {
     root.classList.add(enabled ? 'dark' : 'light')
   }, [enabled])
 
-  return [enabled, setIsEnabled]
+  return [enabled, setIsEnabled] as const
 }
+
+export default useDarkMode
