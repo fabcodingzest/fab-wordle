@@ -6,7 +6,11 @@ const keyboardLetters = [
   ['Enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Backspace'],
 ]
 
-const Keypad = () => {
+interface KeyPadProps {
+  setCurrentGuess: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Keypad = ({ setCurrentGuess }: KeyPadProps) => {
   return (
     <section>
       {keyboardLetters.map((row, i) => {
@@ -17,6 +21,7 @@ const Keypad = () => {
                 <button
                   className='bg-grey-med border-grey-dark flex h-6 w-min items-center justify-center rounded-md border px-2 text-xs md:h-10 md:px-3 md:text-sm '
                   key={letter}
+                  onClick={() => setCurrentGuess((prevState) => prevState + letter)}
                 >
                   {letter === 'Backspace' ? <BackSpace /> : letter}
                 </button>
