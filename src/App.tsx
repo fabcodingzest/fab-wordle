@@ -1,5 +1,22 @@
+import { useState } from 'react'
+import { Board, Footer, Header, Keypad } from './components'
+
+interface KeyState {
+  key: string
+  color: string
+}
+
 function App() {
-  return <div className='bg-red-500'>Hello There!</div>
+  return (
+    <>
+      <Header text={'Fabordle'} />
+      <main className='bg-grey-light dark:bg-blue-midnight'>
+        <Board />
+        <Keypad />
+      </main>
+      <Footer />
+    </>
+  )
 }
 
 export default App
