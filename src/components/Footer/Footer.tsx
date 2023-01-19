@@ -6,7 +6,7 @@ const Footer = () => {
         <a href='https://github.com/fabcodingzest' className='underline'>
           @fabcodingzest
         </a>{' '}
-        with 💜
+        with ❤️
       </p>
     </footer>
   )
