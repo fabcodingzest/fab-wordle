@@ -1,10 +1,4 @@
-import { useState } from 'react'
 import { Board, Footer, Header, Keypad } from './components'
-
-interface KeyState {
-  key: string
-  color: string
-}
 
 function App() {
   return (
