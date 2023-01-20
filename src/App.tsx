@@ -4,6 +4,7 @@ import words from './utility/words.json'
 import 'react-responsive-modal/styles.css'
 import { Modal } from 'react-responsive-modal'
 import useStore from './hooks/useStore'
+import ModalContent from './components/Modal/ModalContent'
 
 const solution = words[Math.floor(Math.random() * words.length)]
 
@@ -35,19 +36,7 @@ function App() {
         center
         classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
       >
-        <div className='text-center'>
-          <h2 className='pt-2 pb-4 text-xl font-bold'>
-            {isCorrect ? 'Congrats, You guessed it right!' : 'Aw! Better luck next time'}
-          </h2>
-          <p className=''>
-            Right answer is <span className='font-bold text-green-700'>{solution}</span>
-          </p>
-          <p>
-            {isCorrect
-              ? `You found answer in ${turn === 1 ? ' 1 turn' : `${turn} turns`} Wohuuuuu!`
-              : '6 turns were not enough? You suck bruh lol!'}
-          </p>
-        </div>
+        <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
       </Modal>
     </>
   )
