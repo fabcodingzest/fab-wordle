@@ -89,7 +89,8 @@ const useStore = (solution: string) => {
       })
       setCurrentGuess('')
       if (turn === 5) {
-        setTimeout(() => setOpen(true), 3000)
+        toast.error(solution, { duration: 1000 })
+        setTimeout(() => setOpen(true), 1000)
       }
       setTurn((prev) => prev + 1)
     } else {
