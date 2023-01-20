@@ -41,10 +41,6 @@ const useStore = (solution: string) => {
   }
 
   const addNewWord = (guess: string) => {
-    if (history.includes(guess)) {
-      toast('Word already guessed', { duration: 3000 })
-      return
-    }
     const formattedGuess = formatGuess()
     setGuesses((prev) => {
       const newGuesses = [...prev]
@@ -83,7 +79,12 @@ const useStore = (solution: string) => {
         toast.success(solution, { duration: 2500 })
         setTimeout(() => setOpen(true), 3000)
       }
-      // add new word in history, guesses and colors to usedKeys for keyboard
+      // Don't do anything if word was guessed once before
+      if (history.includes(guess)) {
+        toast('Word already guessed', { duration: 3000 })
+        return
+      }
+      // add new word in guesses and colors to usedKeys for keyboard
       addNewWord(guess)
       // format currentGuess
       setCurrentGuess('')
