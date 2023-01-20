@@ -9,7 +9,6 @@ interface RowProps {
 const Row = ({ currentGuess, guess }: RowProps) => {
   if (guess) {
     const isWin = guess.every((x) => x.color === green)
-    console.log(isWin)
     return (
       <div className='flex gap-1'>
         {guess.map(({ color, letter }, i) => (
@@ -25,8 +24,9 @@ const Row = ({ currentGuess, guess }: RowProps) => {
   }
 
   if (currentGuess) {
+    console.log(false)
     return (
-      <div className='flex gap-1'>
+      <div className={'flex gap-1'}>
         {currentGuess.split('').map((item, i) => (
           <Tile key={i} letter={item} animation={'animate-bounce-once'} />
         ))}
