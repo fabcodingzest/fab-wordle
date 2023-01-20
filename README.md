@@ -7,7 +7,6 @@ A [wordle](https://www.nytimes.com/games/wordle/index.html) clone to play games 
 
 - [React JS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Redux Toolkit with RTQ Query](https://redux-toolkit.js.org/)
 - [Tailwind](https://tailwindcss.com/)
 
 ### Features
