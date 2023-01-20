@@ -6,6 +6,7 @@ import { green, unused, used, yellow } from '../utility/constants'
 import { TileProps } from '../components/Board/Tile'
 
 const useStore = (solution: string) => {
+  console.log(solution)
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
@@ -14,6 +15,11 @@ const useStore = (solution: string) => {
   const [history, setHistory] = useState<string[]>([])
   const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({})
   const [open, setOpen] = useState(false)
+  const [shake, setShake] = useState(false)
+
+  const activateShake = () => {
+    setShake(true)
+  }
 
   const onCloseModal = () => {
     setOpen(false)
@@ -96,6 +102,7 @@ const useStore = (solution: string) => {
       setTurn((prev) => prev + 1)
     } else {
       // otherwise show toast the word doesn't exist
+      activateShake()
       toast.error('Word not found')
     }
   }
@@ -149,6 +156,7 @@ const useStore = (solution: string) => {
     isCorrect,
     open,
     keyboardEnable,
+    shake,
   } as const
 }
 

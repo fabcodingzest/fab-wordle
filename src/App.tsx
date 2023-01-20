@@ -19,8 +19,10 @@ function App() {
     isCorrect,
     open,
     keyboardEnable,
+    shake,
   } = useStore(solution)
-
+  console.log('shake')
+  console.log(shake)
   return (
     <>
       <Header text={'Fabordle'} />
