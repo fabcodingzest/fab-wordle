@@ -16,18 +16,24 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(false)
   const [keyboardEnable, setKeyboardEnable] = useState(true)
 
-  const formatGuess = (str: string) => {
-    const array = str.split('')
-    const formattedGuess = array.map((letter, i) => {
-      let color
-      if (solution.indexOf(letter) === i) {
-        color = 'bg-green-400'
-      } else if (solution.includes(letter)) {
-        color = 'bg-yellow-400'
-      } else {
-        color = 'bg-grey-med'
+  const formatGuess = () => {
+    const solArr: (string | null)[] = [...solution]
+    const formattedGuess = [...currentGuess].map((letter) => ({ letter, color: 'bg-grey-med' }))
+
+    // set green color for right guesses
+    formattedGuess.forEach((item, i) => {
+      if (solArr[i] === item.letter) {
+        formattedGuess[i].color = 'bg-green-400'
+        solArr[i] = null
       }
-      return { letter, color }
+    })
+
+    // set yellow for letters that are on wrong place and havent
+    formattedGuess.forEach((item, i) => {
+      if (solArr.includes(item.letter) && item.color !== 'bg-green-400') {
+        formattedGuess[i].color = 'bg-yellow-400'
+        solArr[solArr.indexOf(item.letter)] = null
+      }
     })
     return formattedGuess
   }
@@ -41,7 +47,7 @@ function App() {
         setIsCorrect(true)
       }
       // format the currentGuess to detailed object array
-      const formattedGuess = formatGuess(guess)
+      const formattedGuess = formatGuess()
       setGuesses((prev) => {
         const newGuesses = [...prev]
         newGuesses[turn] = formattedGuess
