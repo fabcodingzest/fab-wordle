@@ -1,6 +1,8 @@
 # Fabordle
 A [wordle](https://www.nytimes.com/games/wordle/index.html) clone to play games with random word guesses.
 
+
+![Preview Image](./public//preview.png)
 ## Check it out live here - [yet-to-deploy](yet-to-deploy)
 
 ### Techs Used
