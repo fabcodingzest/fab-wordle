@@ -3,28 +3,29 @@ import { Board, Footer, Header, Keypad } from './components'
 import words from './utility/words.json'
 
 export interface TileProps {
-  key: string
-  color: string
+  letter: string
+  color?: string
 }
 
 function App() {
   const solution = words[Math.floor(Math.random() * words.length)]
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
-  const [guesses, setGuesses] = useState<TileProps[][]>([])
+  const [history, setHistory] = useState([])
+  const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
 
   const formatGuess = (str: string) => {
     const array = str.split('')
-    const formattedGuess = array.map((key, i) => {
+    const formattedGuess = array.map((letter, i) => {
       let color
-      if (solution.indexOf(key) === i) {
+      if (solution.indexOf(letter) === i) {
         color = 'bg-green-400'
-      } else if (solution.includes(key)) {
+      } else if (solution.includes(letter)) {
         color = 'bg-yellow-400'
       } else {
         color = 'bg-grey-med'
       }
-      return { key, color }
+      return { letter, color }
     })
     return formattedGuess
   }
@@ -73,7 +74,7 @@ function App() {
     <div className='flex min-h-screen flex-col'>
       <Header text={'Fabordle'} />
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
-        <Board />
+        <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
         <Keypad handleInput={handleInput} />
       </main>
       <Footer />

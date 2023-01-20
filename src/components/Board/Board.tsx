@@ -1,14 +1,20 @@
 import { TileProps } from '../../App'
 import Row from './Row'
 
-const Board = () => {
+interface BoardProps {
+  guesses: TileProps[][]
+  turn: number
+  currentGuess: string
+}
+
+const Board = ({ currentGuess, turn, guesses }: BoardProps) => {
   return (
     <div className='flex flex-col items-center gap-1 py-2'>
-      {Array(6)
-        .fill(0)
-        .map((_, i) => {
-          return <Row key={i} />
-        })}
+      {guesses.map((guess, i) => {
+        if (guess) {
+          return <Row key={i} guess={guess} />
+        }
+      })}
     </div>
   )
 }
