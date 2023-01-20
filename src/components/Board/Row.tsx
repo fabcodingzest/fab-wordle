@@ -7,7 +7,6 @@ interface RowProps {
 }
 
 const Row = ({ currentGuess, guess }: RowProps) => {
-  console.log(guess)
   if (guess) {
     return (
       <div className='flex gap-1'>
