@@ -90,12 +90,13 @@ function App() {
     if (key) handleInput(key)
   }
   useEffect(() => {
+    window.addEventListener('keyup', handleKeyup)
+
     if (isCorrect) {
       setKeyboardEnable(false)
       window.removeEventListener('keyup', handleKeyup)
     }
 
-    window.addEventListener('keyup', handleKeyup)
     return () => window.removeEventListener('keyup', handleKeyup)
   }, [handleKeyup, isCorrect])
 
