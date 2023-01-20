@@ -8,7 +8,6 @@ import { green, unused, used, yellow } from '../utility/constants'
 const useStore = (solution: string) => {
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
-  console.log(solution)
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
   const [isCorrect, setIsCorrect] = useState(false)
   const [keyboardEnable, setKeyboardEnable] = useState(true)
