@@ -7,6 +7,7 @@ module.exports = {
       colors: {
         violet: {
           dark: '#5964E0',
+          light: '#939BF4',
         },
         blue: {
           midnight: '#121721',
