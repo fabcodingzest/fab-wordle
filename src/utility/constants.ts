@@ -10,3 +10,10 @@ export const animation = [
   'animate-flip-4',
   'animate-flip-5',
 ]
+export const animationWin = [
+  'animate-win-1',
+  'animate-win-2',
+  'animate-win-3',
+  'animate-win-4',
+  'animate-win-5',
+]

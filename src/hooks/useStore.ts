@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import dictionary from '../utility/dictionary.json'
 import 'react-responsive-modal/styles.css'
-import { TileProps } from '../App'
 import { green, unused, used, yellow } from '../utility/constants'
+import { TileProps } from '../components/Board/Tile'
 
 const useStore = (solution: string) => {
+  console.log(solution)
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])

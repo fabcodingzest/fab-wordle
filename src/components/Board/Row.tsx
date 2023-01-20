@@ -1,4 +1,4 @@
-import { animation } from '../../utility/constants'
+import { animation, animationWin, green } from '../../utility/constants'
 import Tile, { TileProps } from './Tile'
 
 interface RowProps {
@@ -8,14 +8,17 @@ interface RowProps {
 
 const Row = ({ currentGuess, guess }: RowProps) => {
   if (guess) {
+    const isWin = guess.every((x) => x.color === green)
+    console.log(isWin)
     return (
       <div className='flex gap-1'>
         {guess.map(({ color, letter }, i) => (
-          <Tile key={i} letter={letter} color={color} animation={animation[i]} />
-        ))}
-
-        {Array(5 - guess.length).map((item, i) => (
-          <Tile key={i} letter={''} />
+          <Tile
+            key={i}
+            letter={letter}
+            color={color}
+            animation={isWin ? animationWin[i] : animation[i]}
+          />
         ))}
       </div>
     )

@@ -35,18 +35,33 @@ module.exports = {
             transform: 'rotateX(0deg)',
           },
         },
+        bounce: {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '30%': {
+            transform: 'translateY(-20px)',
+          },
+          '60%': {
+            transform: 'translateY(2px)',
+          },
+          '80%': {
+            transform: 'translateY(4px)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
         'bounce-once': {
           '0%': {
             transform: 'scale(1)',
-            border: 'border-grey-dark',
           },
           '50%': {
             transform: 'scale(1.2)',
-            border: '1px solid black',
+            borderColor: '#9DAEC2',
           },
           '100%': {
             transform: 'scale(1)',
-            border: '1px solid black',
           },
         },
       },
@@ -57,6 +72,11 @@ module.exports = {
         'flip-4': 'flip 0.7s ease-in-out',
         'flip-5': 'flip 0.9s ease-in-out',
         'bounce-once': 'bounce-once 0.2s ease-in-out',
+        'win-1': 'flip 0.1s ease-in-out, bounce 0.2s 0.9s ease-in-out',
+        'win-2': 'flip 0.3s ease-in-out, bounce 0.2s 1.1s ease-in-out',
+        'win-3': 'flip 0.5s ease-in-out, bounce 0.2s 1.3s ease-in-out',
+        'win-4': 'flip 0.7s ease-in-out, bounce 0.2s 1.5s ease-in-out',
+        'win-5': 'flip 0.9s ease-in-out, bounce 0.2s 1.7s ease-in-out',
       },
     },
   },
