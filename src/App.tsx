@@ -26,7 +26,7 @@ function App() {
   } = useStore(solution)
 
   return (
-    <div className='flex min-h-screen flex-col'>
+    <>
       <Header text={'Fabordle'} />
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
         <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
@@ -54,7 +54,7 @@ function App() {
           </p>
         </div>
       </Modal>
-    </div>
+    </>
   )
 }
 
