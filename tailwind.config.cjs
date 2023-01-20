@@ -7,10 +7,8 @@ module.exports = {
       colors: {
         violet: {
           dark: '#5964E0',
-          light: '#939BF4',
         },
         blue: {
-          dark: '#19202D',
           midnight: '#121721',
         },
 
@@ -18,8 +16,7 @@ module.exports = {
           light: '#F4F6F8',
           med: '#9DAEC2',
           dark: '#6E8098',
-          btn: '#303642',
-          hover: '#525861',
+          darkest: '#525861',
         },
       },
     },
