@@ -20,7 +20,6 @@ const Keypad = ({ usedKeys, keyboardEnable, handleInput }: KeyPadProps) => {
           <div key={i} className='flex justify-center gap-x-1 pb-1 md:gap-2 md:pb-2'>
             {row.map((letter) => {
               const color = usedKeys[letter]
-              console.log('color' + color)
               return (
                 <button
                   className={`${
