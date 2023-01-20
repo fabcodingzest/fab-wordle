@@ -11,9 +11,10 @@ const Board = ({ currentGuess, turn, guesses }: BoardProps) => {
   return (
     <div className='flex flex-col items-center gap-1 py-2'>
       {guesses.map((guess, i) => {
-        if (guess) {
-          return <Row key={i} guess={guess} />
+        if (turn === i) {
+          return <Row key={i} currentGuess={currentGuess} />
         }
+        return <Row key={i} guess={guess} />
       })}
     </div>
   )

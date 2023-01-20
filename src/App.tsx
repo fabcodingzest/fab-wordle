@@ -7,11 +7,10 @@ export interface TileProps {
   color?: string
 }
 
+const solution = words[Math.floor(Math.random() * words.length)]
 function App() {
-  const solution = words[Math.floor(Math.random() * words.length)]
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
-  const [history, setHistory] = useState([])
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
 
   const formatGuess = (str: string) => {
@@ -32,8 +31,12 @@ function App() {
 
   const checkSubmission = (guess: string) => {
     const formattedGuess = formatGuess(guess)
-    console.log(formattedGuess)
-    setGuesses((prev) => [...prev, formattedGuess])
+
+    setGuesses((prev) => {
+      const newGuesses = [...prev]
+      newGuesses[turn] = formattedGuess
+      return newGuesses
+    })
     setCurrentGuess('')
     setTurn((prev) => prev + 1)
   }
@@ -74,6 +77,7 @@ function App() {
     <div className='flex min-h-screen flex-col'>
       <Header text={'Fabordle'} />
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
+        <p>{solution}</p>
         <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
         <Keypad handleInput={handleInput} />
       </main>
