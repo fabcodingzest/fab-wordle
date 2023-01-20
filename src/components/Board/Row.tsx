@@ -1,5 +1,5 @@
-import { TileProps } from '../../App'
-import Tile from './Tile'
+import { animation } from '../../utility/constants'
+import Tile, { TileProps } from './Tile'
 
 interface RowProps {
   guess?: TileProps[] | null
@@ -10,8 +10,8 @@ const Row = ({ currentGuess, guess }: RowProps) => {
   if (guess) {
     return (
       <div className='flex gap-1'>
-        {guess.map((item, i) => (
-          <Tile key={i} letter={item.letter} color={item.color} />
+        {guess.map(({ color, letter }, i) => (
+          <Tile key={i} letter={letter} color={color} animation={animation[i]} />
         ))}
 
         {Array(5 - guess.length).map((item, i) => (
@@ -25,7 +25,7 @@ const Row = ({ currentGuess, guess }: RowProps) => {
     return (
       <div className='flex gap-1'>
         {currentGuess.split('').map((item, i) => (
-          <Tile key={i} letter={item} />
+          <Tile key={i} letter={item} animation={'animate-bounce-once'} />
         ))}
 
         {[...Array<string>(5 - currentGuess.length).fill('')].map((str, i) => (

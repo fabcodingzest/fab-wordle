@@ -1,5 +1,5 @@
-import { TileProps } from '../../App'
 import Row from './Row'
+import { TileProps } from './Tile'
 
 interface BoardProps {
   guesses: TileProps[][]

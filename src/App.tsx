@@ -5,11 +5,6 @@ import 'react-responsive-modal/styles.css'
 import { Modal } from 'react-responsive-modal'
 import useStore from './hooks/useStore'
 
-export interface TileProps {
-  letter: string
-  color?: string
-}
-
 const solution = words[Math.floor(Math.random() * words.length)]
 
 function App() {
