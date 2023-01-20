@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Board, Footer, Header, Keypad } from './components'
 import words from './utility/words.json'
+import dictionary from './utility/dictionary.json'
 
 export interface TileProps {
   letter: string
@@ -12,6 +13,8 @@ function App() {
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
+  const [isCorrect, setIsCorrect] = useState(false)
+  const [keyboardEnable, setKeyboardEnable] = useState(true)
 
   const formatGuess = (str: string) => {
     const array = str.split('')
@@ -30,15 +33,25 @@ function App() {
   }
 
   const checkSubmission = (guess: string) => {
-    const formattedGuess = formatGuess(guess)
-
-    setGuesses((prev) => {
-      const newGuesses = [...prev]
-      newGuesses[turn] = formattedGuess
-      return newGuesses
-    })
-    setCurrentGuess('')
-    setTurn((prev) => prev + 1)
+    // if dictionary have this word then go forward
+    if (dictionary.includes(guess)) {
+      // if the word is same as solution
+      if (solution === guess) {
+        console.log(solution === guess)
+        setIsCorrect(true)
+      }
+      // format the currentGuess to detailed object array
+      const formattedGuess = formatGuess(guess)
+      setGuesses((prev) => {
+        const newGuesses = [...prev]
+        newGuesses[turn] = formattedGuess
+        return newGuesses
+      })
+      setCurrentGuess('')
+      setTurn((prev) => prev + 1)
+    } else {
+      // otherwise show toast the word doesn't exist
+    }
   }
 
   const handleInput = (key: string) => {
@@ -53,6 +66,8 @@ function App() {
       else if (key === 'Enter') {
         if (currentGuess.length === 5) {
           checkSubmission(currentGuess)
+        } else {
+          // if less then 5 then show toast incomplete word or something
         }
       }
       // if its a letter then set it in current guess
@@ -63,15 +78,20 @@ function App() {
       }
     }
   }
+
+  function handleKeyup(e: KeyboardEvent) {
+    const key = e.key
+    if (key) handleInput(key)
+  }
   useEffect(() => {
-    function handleKeyup(e: KeyboardEvent) {
-      const key = e.key
-      if (key) handleInput(key)
+    if (isCorrect) {
+      setKeyboardEnable(false)
+      window.removeEventListener('keyup', handleKeyup)
     }
 
-    document.addEventListener('keyup', handleKeyup)
-    return () => document.removeEventListener('keyup', handleKeyup)
-  }, [handleInput])
+    window.addEventListener('keyup', handleKeyup)
+    return () => window.removeEventListener('keyup', handleKeyup)
+  }, [handleKeyup, isCorrect])
 
   return (
     <div className='flex min-h-screen flex-col'>
@@ -79,7 +99,7 @@ function App() {
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
         <p>{solution}</p>
         <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
-        <Keypad handleInput={handleInput} />
+        <Keypad handleInput={handleInput} keyboardEnable={keyboardEnable} />
       </main>
       <Footer />
     </div>
