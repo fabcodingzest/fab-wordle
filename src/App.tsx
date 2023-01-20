@@ -3,6 +3,8 @@ import toast, { Toaster } from 'react-hot-toast'
 import { Board, Footer, Header, Keypad } from './components'
 import words from './utility/words.json'
 import dictionary from './utility/dictionary.json'
+import 'react-responsive-modal/styles.css'
+import { Modal } from 'react-responsive-modal'
 
 export interface TileProps {
   letter: string
@@ -13,9 +15,13 @@ const solution = words[Math.floor(Math.random() * words.length)]
 function App() {
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
+  console.log(solution)
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
   const [isCorrect, setIsCorrect] = useState(false)
   const [keyboardEnable, setKeyboardEnable] = useState(true)
+  const [open, setOpen] = useState(false)
+
+  const onCloseModal = () => setOpen(false)
 
   const formatGuess = () => {
     const solArr: (string | null)[] = [...solution]
@@ -46,6 +52,8 @@ function App() {
       if (solution === guess) {
         console.log(solution === guess)
         setIsCorrect(true)
+        toast.success(solution, { duration: 2500 })
+        setTimeout(() => setOpen(true), 3000)
       }
       // format the currentGuess to detailed object array
       const formattedGuess = formatGuess()
@@ -65,25 +73,28 @@ function App() {
   const handleInput = (key: string) => {
     // if its backspace pop up the letter from current guess
     console.log(key)
-    if (turn < 6) {
-      if (key === 'Backspace') {
-        setCurrentGuess((prev) => prev.slice(0, -1))
+
+    if (key === 'Backspace') {
+      setCurrentGuess((prev) => prev.slice(0, -1))
+      return
+    }
+    // if its enter then call word submit function
+    else if (key === 'Enter') {
+      if (turn > 5) {
+        // setIsCorrect(true)
+        return
+      } else if (currentGuess.length < 5) {
+        // if less then 5 then show toast incomplete word or something
+        toast('Not enough letters')
+      } else {
+        checkSubmission(currentGuess)
         return
       }
-      // if its enter then call word submit function
-      else if (key === 'Enter') {
-        if (currentGuess.length === 5) {
-          checkSubmission(currentGuess)
-        } else {
-          // if less then 5 then show toast incomplete word or something
-          toast('Not enough letters')
-        }
-      }
-      // if its a letter then set it in current guess
-      else if (/^[a-zA-Z]$/.test(key)) {
-        if (currentGuess.length < 5) {
-          setCurrentGuess((prev) => prev + key)
-        }
+    }
+    // if its a letter then set it in current guess
+    else if (/^[a-zA-Z]$/.test(key)) {
+      if (currentGuess.length < 5) {
+        setCurrentGuess((prev) => (prev + key).toLowerCase())
       }
     }
   }
@@ -99,9 +110,12 @@ function App() {
       setKeyboardEnable(false)
       window.removeEventListener('keyup', handleKeyup)
     }
+    if (turn > 5) {
+      setOpen(true)
+    }
 
     return () => window.removeEventListener('keyup', handleKeyup)
-  }, [handleKeyup, isCorrect])
+  }, [handleKeyup, isCorrect, turn])
 
   return (
     <div className='flex min-h-screen flex-col'>
@@ -112,6 +126,26 @@ function App() {
       </main>
       <Footer />
       <Toaster />
+      <Modal
+        open={open}
+        onClose={onCloseModal}
+        center
+        classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
+      >
+        <div className='text-center'>
+          <h2 className='pt-2 pb-4 text-xl font-bold'>
+            {isCorrect ? 'Congrats, You guessed it right!' : 'Aw! Better luck next time'}
+          </h2>
+          <p className=''>
+            Right answer is <span className='font-bold text-green-700'>{solution}</span>
+          </p>
+          <p>
+            {isCorrect
+              ? `It took you ${turn === 1 ? ' 1 turn' : `${turn} turns`} to get it right`
+              : '6 turns were not enough? You suck bruh lol!'}
+          </p>
+        </div>
+      </Modal>
     </div>
   )
 }

@@ -7,7 +7,7 @@ const Tile = ({ letter, color }: TileProps) => {
         3,
       )}`}
     >
-      {letter}
+      {letter.toUpperCase()}
     </div>
   )
 }
