@@ -6,7 +6,6 @@ import { green, unused, used, yellow } from '../utility/constants'
 import { TileProps } from '../components/Board/Tile'
 
 const useStore = (solution: string) => {
-  console.log(solution)
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState('')
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
@@ -19,6 +18,7 @@ const useStore = (solution: string) => {
 
   const activateShake = () => {
     setShake(true)
+    setTimeout(() => setShake(false), 600)
   }
 
   const onCloseModal = () => {
@@ -117,6 +117,7 @@ const useStore = (solution: string) => {
     else if (key === 'Enter') {
       if (currentGuess.length < 5) {
         // if less then 5 then show toast incomplete word or something
+        activateShake()
         toast('Not enough letters')
       } else {
         checkSubmission(currentGuess)

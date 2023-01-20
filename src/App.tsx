@@ -21,13 +21,11 @@ function App() {
     keyboardEnable,
     shake,
   } = useStore(solution)
-  console.log('shake')
-  console.log(shake)
   return (
     <>
       <Header text={'Fabordle'} />
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
-        <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
+        <Board guesses={guesses} turn={turn} currentGuess={currentGuess} shake={shake} />
         <Keypad handleInput={handleInput} keyboardEnable={keyboardEnable} usedKeys={usedKeys} />
       </main>
       <Footer />

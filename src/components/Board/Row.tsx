@@ -4,9 +4,10 @@ import Tile, { TileProps } from './Tile'
 interface RowProps {
   guess?: TileProps[] | null
   currentGuess?: string
+  shake?: boolean
 }
 
-const Row = ({ currentGuess, guess }: RowProps) => {
+const Row = ({ currentGuess, guess, shake }: RowProps) => {
   if (guess) {
     const isWin = guess.every((x) => x.color === green)
     return (
@@ -24,9 +25,8 @@ const Row = ({ currentGuess, guess }: RowProps) => {
   }
 
   if (currentGuess) {
-    console.log(false)
     return (
-      <div className={'flex gap-1'}>
+      <div className={`flex gap-1 ${shake ? 'animate-shake transition' : ''}`}>
         {currentGuess.split('').map((item, i) => (
           <Tile key={i} letter={item} animation={'animate-bounce-once'} />
         ))}
