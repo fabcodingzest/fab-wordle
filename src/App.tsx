@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { Board, Footer, Header, Keypad } from './components'
 import words from './utility/words.json'
 import dictionary from './utility/dictionary.json'
@@ -57,6 +58,7 @@ function App() {
       setTurn((prev) => prev + 1)
     } else {
       // otherwise show toast the word doesn't exist
+      toast.error('Word not found')
     }
   }
 
@@ -74,6 +76,7 @@ function App() {
           checkSubmission(currentGuess)
         } else {
           // if less then 5 then show toast incomplete word or something
+          toast('Not enough letters')
         }
       }
       // if its a letter then set it in current guess
@@ -104,11 +107,11 @@ function App() {
     <div className='flex min-h-screen flex-col'>
       <Header text={'Fabordle'} />
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
-        <p>{solution}</p>
         <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
         <Keypad handleInput={handleInput} keyboardEnable={keyboardEnable} />
       </main>
       <Footer />
+      <Toaster />
     </div>
   )
 }
