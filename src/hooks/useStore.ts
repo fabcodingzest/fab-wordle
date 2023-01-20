@@ -23,7 +23,6 @@ const useStore = (solution: string) => {
   const formatGuess = () => {
     const solArr: (string | null)[] = [...solution]
     const formattedGuess = [...currentGuess].map((letter) => ({ letter, color: unused }))
-
     // set green color for right guesses
     formattedGuess.forEach((item, i) => {
       if (solArr[i] === item.letter) {
@@ -31,7 +30,6 @@ const useStore = (solution: string) => {
         solArr[i] = null
       }
     })
-
     // set yellow for letters that are on wrong place and havent
     formattedGuess.forEach((item, i) => {
       if (solArr.includes(item.letter) && item.color !== green) {
@@ -41,6 +39,7 @@ const useStore = (solution: string) => {
     })
     return formattedGuess
   }
+
   const addNewWord = (guess: string) => {
     if (history.includes(guess)) {
       toast('Word already guessed', { duration: 3000 })
@@ -74,6 +73,7 @@ const useStore = (solution: string) => {
       return newKeys
     })
   }
+
   const checkSubmission = (guess: string) => {
     // if dictionary have this word then go forward
     if (dictionary.includes(guess)) {
@@ -128,14 +128,14 @@ const useStore = (solution: string) => {
     const key = e.key
     if (key) handleInput(key)
   }
+
   useEffect(() => {
     window.addEventListener('keyup', handleKeyup)
-
-    if (isCorrect) {
+    // remove access to keyboard after correct guess
+    if (isCorrect || turn > 5) {
       setKeyboardEnable(false)
       window.removeEventListener('keyup', handleKeyup)
     }
-
     return () => window.removeEventListener('keyup', handleKeyup)
   }, [handleKeyup, isCorrect, turn])
 
