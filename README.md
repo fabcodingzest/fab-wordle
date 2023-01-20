@@ -1,9 +1,10 @@
 # Fabordle
-A [wordle](https://www.nytimes.com/games/wordle/index.html) clone to play games with random word guesses.
 
+A word guess game where the user gets 6 chances to guess a random word based on the hints given to guessed words letters. Have Fun! (A [wordle](https://www.nytimes.com/games/wordle/index.html) clone)
 
 ![Preview Image](./public//preview.png)
-## Check it out live here - [yet-to-deploy](yet-to-deploy)
+
+## Check it out live here - [https://fabordle.netlify.app/](https://fabordle.netlify.app/)
 
 ### Techs Used
 
@@ -12,12 +13,12 @@ A [wordle](https://www.nytimes.com/games/wordle/index.html) clone to play games 
 - [Tailwind](https://tailwindcss.com/)
 
 ### Features
+
 - Random Word Selected every x minutes
-- 5 Guesses 
+- 5 Guesses
 - Keyboard and onScreen keyboard in sync (optional)
 - Showing state of guessed words as right or partial right (wrong position)
 - game end on right guess
-
 
 ### Want to run this on your local machine?
 
