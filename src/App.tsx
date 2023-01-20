@@ -19,9 +19,12 @@ function App() {
   const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)])
   const [isCorrect, setIsCorrect] = useState(false)
   const [keyboardEnable, setKeyboardEnable] = useState(true)
+  const [history, setHistory] = useState<string[]>([])
   const [open, setOpen] = useState(false)
 
-  const onCloseModal = () => setOpen(false)
+  const onCloseModal = () => {
+    setOpen(false)
+  }
 
   const formatGuess = () => {
     const solArr: (string | null)[] = [...solution]
@@ -56,12 +59,17 @@ function App() {
         setTimeout(() => setOpen(true), 3000)
       }
       // format the currentGuess to detailed object array
+      if (history.includes(guess)) {
+        toast('Word already guessed', { duration: 3000 })
+        return
+      }
       const formattedGuess = formatGuess()
       setGuesses((prev) => {
         const newGuesses = [...prev]
         newGuesses[turn] = formattedGuess
         return newGuesses
       })
+      setHistory((prev) => [...prev, guess])
       setCurrentGuess('')
       setTurn((prev) => prev + 1)
     } else {
@@ -141,7 +149,7 @@ function App() {
           </p>
           <p>
             {isCorrect
-              ? `It took you ${turn === 1 ? ' 1 turn' : `${turn} turns`} to get it right`
+              ? `You found answer in ${turn === 1 ? ' 1 turn' : `${turn} turns`} Wohuuuuu!`
               : '6 turns were not enough? You suck bruh lol!'}
           </p>
         </div>
