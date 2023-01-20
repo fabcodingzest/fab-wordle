@@ -16,9 +16,9 @@ A word guess game where the user gets 6 chances to guess a random word based on 
 
 - Random Word Selected every x minutes
 - 5 Guesses
-- Keyboard and onScreen keyboard in sync (optional)
-- Showing state of guessed words as right or partial right (wrong position)
-- game end on right guess
+- Keyboard and onScreen keyboard in sync
+- Showing state of guessed words as right or partial right (wrong position) on Board and Keypad both
+- game ends on right guess
 
 ### Want to run this on your local machine?
 
