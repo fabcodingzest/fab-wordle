@@ -20,6 +20,7 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(false)
   const [keyboardEnable, setKeyboardEnable] = useState(true)
   const [history, setHistory] = useState<string[]>([])
+  const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({})
   const [open, setOpen] = useState(false)
 
   const onCloseModal = () => {
@@ -70,6 +71,30 @@ function App() {
         return newGuesses
       })
       setHistory((prev) => [...prev, guess])
+      setUsedKeys((prev) => {
+        const newKeys = { ...prev }
+        formattedGuess.forEach((item) => {
+          const currentColor = newKeys[item.letter]
+
+          if (item.color === 'bg-green-400') {
+            newKeys[item.letter] = 'bg-green-400'
+            return
+          }
+          if (item.color === 'bg-yellow-400' && currentColor !== 'bg-green-400') {
+            newKeys[item.letter] = 'bg-yellow-400'
+            return
+          }
+          if (
+            item.color === 'bg-grey-med' &&
+            currentColor !== 'bg-green-400' &&
+            currentColor !== 'bg-yellow-400'
+          ) {
+            newKeys[item.letter] = 'bg-grey-darkest'
+            return
+          }
+        })
+        return newKeys
+      })
       setCurrentGuess('')
       setTurn((prev) => prev + 1)
     } else {
@@ -130,7 +155,7 @@ function App() {
       <Header text={'Fabordle'} />
       <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
         <Board guesses={guesses} turn={turn} currentGuess={currentGuess} />
-        <Keypad handleInput={handleInput} keyboardEnable={keyboardEnable} />
+        <Keypad handleInput={handleInput} keyboardEnable={keyboardEnable} usedKeys={usedKeys} />
       </main>
       <Footer />
       <Toaster />
