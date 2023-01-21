@@ -86,6 +86,7 @@ const useStore = (solution: string) => {
       }
       // Don't do anything if word was guessed once before
       if (history.includes(guess)) {
+        activateShake()
         toast('Word already guessed', { duration: 3000 })
         return
       }
