@@ -17,14 +17,14 @@ const Keypad = ({ usedKeys, keyboardEnable, handleInput }: KeyPadProps) => {
     <section>
       {keyboardLetters.map((row, i) => {
         return (
-          <div key={i} className='flex justify-center gap-x-1 pb-1 md:gap-2 md:pb-2'>
+          <div key={i} className='flex justify-center gap-x-1 pb-1.5 md:gap-2 md:pb-2'>
             {row.map((letter) => {
               const color = usedKeys[letter]
               return (
                 <button
                   className={`${
                     color ? color : 'bg-grey-med'
-                  } border-grey-dark flex h-6 w-min items-center justify-center rounded-md border px-2 text-xs md:h-10 md:px-3 md:text-sm `}
+                  } border-grey-dark flex h-10 w-min items-center justify-center rounded-md border px-2.5 text-xs md:px-3 md:text-sm `}
                   key={letter}
                   onClick={() => {
                     if (keyboardEnable) handleInput(letter)

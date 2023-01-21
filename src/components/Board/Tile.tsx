@@ -9,7 +9,7 @@ const Tile = ({ letter, color, animation }: TileProps) => {
     <div
       className={`${
         color ? `${color} text-white` : 'border-grey-dark'
-      } font-sm text-bold ${animation} flex h-10 w-10 items-center justify-center border-2 font-bold transition dark:text-white`}
+      } font-sm text-bold ${animation} flex h-12 w-12 items-center justify-center border-2 font-bold transition dark:text-white`}
     >
       {letter.toUpperCase()}
     </div>

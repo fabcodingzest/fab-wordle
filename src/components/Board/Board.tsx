@@ -8,9 +8,9 @@ interface BoardProps {
   shake: boolean
 }
 
-const Board = ({ currentGuess, turn, guesses,shake }: BoardProps) => {
+const Board = ({ currentGuess, turn, guesses, shake }: BoardProps) => {
   return (
-    <section className='flex flex-col items-center gap-1 py-2'>
+    <section className='flex flex-col items-center gap-1 py-8 md:py-2'>
       {guesses.map((guess, i) => {
         if (turn === i) {
           return <Row key={i} currentGuess={currentGuess} shake={shake} />

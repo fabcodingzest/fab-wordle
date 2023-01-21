@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <Header text={'Fabordle'} />
-      <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2'>
+      <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
         <Board guesses={guesses} turn={turn} currentGuess={currentGuess} shake={shake} />
         <Keypad handleInput={handleInput} keyboardEnable={keyboardEnable} usedKeys={usedKeys} />
       </main>
