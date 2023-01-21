@@ -30,7 +30,7 @@ const Keypad = ({ usedKeys, keyboardEnable, handleInput }: KeyPadProps) => {
                     if (keyboardEnable) handleInput(letter)
                   }}
                 >
-                  {letter === 'Backspace' ? <BackSpace /> : letter}
+                  {letter === 'Backspace' ? <BackSpace /> : letter.toUpperCase()}
                 </button>
               )
             })}
