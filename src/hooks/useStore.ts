@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import dictionary from '../utility/dictionary.json'
 import 'react-responsive-modal/styles.css'
@@ -21,6 +21,10 @@ const useStore = (solution: string) => {
     setTimeout(() => setShake(false), 600)
   }
 
+  const onOpenModal = () => {
+    setOpen(true)
+  }
+
   const onCloseModal = () => {
     setOpen(false)
   }
@@ -34,6 +38,7 @@ const useStore = (solution: string) => {
         formattedGuess[i].color = green
         solArr[i] = null
       }
+      console.log(solArr)
     })
     // set yellow for letters that are on wrong place and havent
     formattedGuess.forEach((item, i) => {
@@ -97,12 +102,12 @@ const useStore = (solution: string) => {
       // on last turn if the current guess is wrong
       if (turn === 5 && !isCorrect) {
         toast.error(solution, { duration: 1000 })
-        setTimeout(() => setOpen(true), 1000)
+        setTimeout(onOpenModal, 1000)
       }
       // increase turn after every try
       setTurn((prev) => prev + 1)
     } else {
-      // otherwise show toast the word doesn't exist
+      // otherwise show toast the word doesn't exist in dictionary
       activateShake()
       toast.error('Word not found')
     }
@@ -133,32 +138,18 @@ const useStore = (solution: string) => {
     }
   }
 
-  function handleKeyup(e: KeyboardEvent) {
-    const key = e.key
-    if (key) handleInput(key)
-  }
-
-  useEffect(() => {
-    window.addEventListener('keyup', handleKeyup)
-    // remove access to keyboard after correct guess
-    if (isCorrect || turn > 5) {
-      setKeyboardEnable(false)
-      window.removeEventListener('keyup', handleKeyup)
-    }
-    return () => window.removeEventListener('keyup', handleKeyup)
-  }, [handleKeyup, isCorrect, turn])
-
   return {
-    guesses,
     turn,
-    currentGuess,
+    open,
+    shake,
+    guesses,
     usedKeys,
+    isCorrect,
+    currentGuess,
+    keyboardEnable,
     handleInput,
     onCloseModal,
-    isCorrect,
-    open,
-    keyboardEnable,
-    shake,
+    setKeyboardEnable,
   } as const
 }
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Board, Footer, Header, Keypad } from './components'
 import words from './utility/words.json'
@@ -10,17 +11,34 @@ const solution = words[Math.floor(Math.random() * words.length)]
 
 function App() {
   const {
-    guesses,
     turn,
-    currentGuess,
+    open,
+    shake,
+    guesses,
     usedKeys,
+    isCorrect,
+    currentGuess,
+    keyboardEnable,
     handleInput,
     onCloseModal,
-    isCorrect,
-    open,
-    keyboardEnable,
-    shake,
+    setKeyboardEnable,
   } = useStore(solution)
+
+  const handleKeyup = (e: KeyboardEvent) => {
+    const key = e.key
+    if (key) handleInput(key)
+  }
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyup)
+    // remove access to keyboard after correct guess
+    if (isCorrect || turn > 5) {
+      setKeyboardEnable(false)
+      window.removeEventListener('keyup', handleKeyup)
+    }
+    return () => window.removeEventListener('keyup', handleKeyup)
+  }, [handleKeyup, isCorrect, turn])
+
   return (
     <>
       <Header text={'Fabordle'} />
