@@ -78,6 +78,10 @@ const useStore = (solution: string) => {
       })
       return newKeys
     })
+    // format currentGuess
+    setCurrentGuess('')
+    // increase turn after every try
+    setTurn((prev) => prev + 1)
   }
 
   const checkSubmission = (guess: string) => {
@@ -95,17 +99,14 @@ const useStore = (solution: string) => {
         toast('Word already guessed', { duration: 3000 })
         return
       }
-      // add new word in guesses and colors to usedKeys for keyboard
+      // add new word in guesses, history, and colors to usedKeys for keyboard
       addNewWord(guess)
-      // format currentGuess
-      setCurrentGuess('')
+      
       // on last turn if the current guess is wrong
-      if (turn === 5 && !isCorrect) {
+      if (turn === 5 && currentGuess !== solution) {
         toast.error(solution, { duration: 1000 })
         setTimeout(onOpenModal, 1000)
       }
-      // increase turn after every try
-      setTurn((prev) => prev + 1)
     } else {
       // otherwise show toast the word doesn't exist in dictionary
       activateShake()
