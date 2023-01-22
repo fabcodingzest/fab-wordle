@@ -2,7 +2,7 @@
 
 A word guess game where the user gets 6 chances to guess a random word based on the hints given to guessed words letters. Have Fun! (A [wordle](https://www.nytimes.com/games/wordle/index.html) clone)
 
-![Preview Image](./public//preview.png)
+![Preview Screenshot](./public//preview.png)
 
 ## Check it out live here - [https://fabordle.netlify.app/](https://fabordle.netlify.app/)
 
