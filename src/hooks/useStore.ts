@@ -38,7 +38,6 @@ const useStore = (solution: string) => {
         formattedGuess[i].color = green
         solArr[i] = null
       }
-      console.log(solArr)
     })
     // set yellow for letters that are on wrong place and havent
     formattedGuess.forEach((item, i) => {
@@ -101,7 +100,7 @@ const useStore = (solution: string) => {
       }
       // add new word in guesses, history, and colors to usedKeys for keyboard
       addNewWord(guess)
-      
+
       // on last turn if the current guess is wrong
       if (turn === 5 && currentGuess !== solution) {
         toast.error(solution, { duration: 1000 })
