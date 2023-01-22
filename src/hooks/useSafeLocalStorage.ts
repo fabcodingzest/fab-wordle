@@ -4,7 +4,7 @@ import { useState } from 'react'
 const useSafeLocalStorage = <T>(
   key: string,
   initialValue: T,
-): [T, (value: T | ((val: T) => T)) => void] => {
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -12,7 +12,7 @@ const useSafeLocalStorage = <T>(
       // Get from local storage by key
       const item = window.localStorage.getItem(key)
       // Parse stored json or if none return initialValue
-      return item ? (JSON.parse(item) as T) : initialValue
+      return item ? <T>JSON.parse(item) : initialValue
     } catch (error) {
       // If error also return initialValue
       console.log(error)
@@ -22,7 +22,7 @@ const useSafeLocalStorage = <T>(
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = (value: T | ((val: T) => T)) => {
+  const setValue = (value: T | React.SetStateAction<T>) => {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore = value instanceof Function ? value(storedValue) : value
